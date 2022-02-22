@@ -38,7 +38,6 @@ export class AuthService {
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
       const userData = JSON.parse(userDataString);
-      console.log(userData.email);
       return new User(
         userData.email,
       );

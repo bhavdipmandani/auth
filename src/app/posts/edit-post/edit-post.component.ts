@@ -1,10 +1,10 @@
-import { updatePost } from './../state/posts.actions';
+import { updatePost } from '../state/posts.actions';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Post } from './../../models/posts.model';
-import { getPostById } from './../state/posts.selector';
-import { AppState } from './../../store/app.state';
+import { Post } from '../../models/posts.model';
+import { getPostById } from '../state/posts.selector';
+import { AppState } from '../../store/app.state';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
@@ -21,6 +21,7 @@ export class EditPostComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.createForm();
+    // @ts-ignore
     this.store.select(getPostById).subscribe((post) => {
       if (post) {
         this.post = post;
@@ -32,7 +33,7 @@ export class EditPostComponent implements OnInit, OnDestroy {
     });
   }
 
-  createForm() {
+  createForm () {
     this.postForm = new FormGroup({
       title: new FormControl(null, [
         Validators.required,
@@ -52,16 +53,14 @@ export class EditPostComponent implements OnInit, OnDestroy {
 
     const title = this.postForm.value.title;
     const description = this.postForm.value.description;
-
     const post: Post = {
-      id: this.post.id,
+      _id: this.post._id,
       title,
       description,
     };
 
-    //dispatch the action
     this.store.dispatch(updatePost({ post }));
-    this.router.navigate(['posts']);
+    this.router.navigate(['/posts']);
   }
 
   ngOnDestroy() {

@@ -1,7 +1,7 @@
-import { getPostById } from './../state/posts.selector';
+import { getPostById } from '../state/posts.selector';
 import { Store } from '@ngrx/store';
-import { AppState } from './../../store/app.state';
-import { Post } from './../../models/posts.model';
+import { AppState } from '../../store/app.state';
+import { Post } from '../../models/posts.model';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 
@@ -16,6 +16,6 @@ export class SinglePostComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.post = this.store.select(getPostById);
+    // this.post = this.store.select(getPostById);
   }
 }

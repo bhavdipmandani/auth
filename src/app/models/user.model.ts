@@ -5,8 +5,5 @@ export class User {
     private token: string,
     // private name: string,
     // private phone: string,
-
-    ) {
-
-  }
+    ) { }
 }
