@@ -6,12 +6,12 @@
     <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
         <label>Title</label>
-        <input type="text" class="form-control" formControlName="title" />
+        <input type="text" class="form-control" formControlName="title" [(ngModel)]="post.title"/>
       </div>
 
       <div class="mb-3">
         <label>Description</label>
-        <textarea class="form-control" formControlName="description"></textarea>
+        <textarea class="form-control" formControlName="description" [(ngModel)]="post.description"></textarea>
       </div>
 
       <div class="my-3">

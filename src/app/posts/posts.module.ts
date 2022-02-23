@@ -16,6 +16,7 @@ const routes: Routes = [
   {
     path: '',
     component: PostsListComponent,
+
     children: [
       { path: 'add', component: AddPostComponent },
       {

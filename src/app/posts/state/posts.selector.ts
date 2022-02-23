@@ -1,4 +1,3 @@
-import { getCurrentRoute } from '../../store/router/router.selector';
 import { PostsState } from './posts.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
@@ -9,6 +8,7 @@ export const getPosts = createSelector(getPostsState, (state) => {
   return state.posts;
 });
 
-export const getPostById = createSelector(getCurrentRoute, (state, props) => {
-  return state.posts.find((post: { _id: any; }) => post._id === props._id)
+export const getPostById = createSelector(getPostsState, (state, props) => {
+  return state.posts;
 })
+/*.find((post: { _id: any; }) => post._id === props.id)*/
