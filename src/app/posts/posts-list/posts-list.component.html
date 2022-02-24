@@ -12,6 +12,7 @@
       <tr>
         <th>Title</th>
         <th>Description</th>
+        <th>Detail</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -19,6 +20,7 @@
       <tr *ngFor="let post of postsData">
         <td style="word-break: break-all">{{ post.title }}</td>
         <td style="word-break: break-all">{{ post.description }}</td>
+        <td><a href="" class="btn btn-secondary" [routerLink]="['detail', post._id]">Detail</a></td>
         <td><a href="" class="btn btn-success" [routerLink]="['edit', post._id]">Update</a>&nbsp;
           <button class="btn btn-danger" (click)="onDeletePost(post._id)">Delete</button>
         </td>

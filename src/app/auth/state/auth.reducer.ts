@@ -5,7 +5,7 @@ import {autoLogout, loginStart, loginSuccess, signupSuccess} from "./auth.action
 
 const _authReducer = createReducer(
   initialState ,
-  on(loginStart , (state, action) => {
+  on(loginStart , (state) => {
     return {
       ...state
     }

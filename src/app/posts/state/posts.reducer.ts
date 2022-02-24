@@ -1,11 +1,4 @@
-import {
-  deletePost,
-  updatePost,
-  loadPostsSuccess,
-  addPostSuccess,
-  updatePostSuccess,
-  deletePostSuccess, listByIdSuccess,
-} from './posts.actions';
+import { loadPostsSuccess, addPostSuccess, updatePostSuccess, deletePostSuccess, listByIdSuccess } from './posts.actions';
 import { createReducer, on } from '@ngrx/store';
 import { initialState } from './posts.state';
 
@@ -51,6 +44,7 @@ const _postsReducer = createReducer(
   }),
 
   on(listByIdSuccess, (state, action) => {
+    console.log(action.posts)
     return {
       ...state,
       posts: action.posts

@@ -4,17 +4,7 @@ import { Store } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { Post } from '../../models/posts.model';
 import { map, mergeMap, switchMap, withLatestFrom } from 'rxjs/operators';
-import {
-  addPost,
-  addPostSuccess,
-  deletePost,
-  deletePostSuccess,
-  listById, listByIdSuccess,
-  loadPosts,
-  loadPostsSuccess,
-  updatePost,
-  updatePostSuccess
-} from './posts.actions';
+import { addPost, addPostSuccess, deletePost, deletePostSuccess, listById, listByIdSuccess, loadPosts, loadPostsSuccess, updatePost, updatePostSuccess } from './posts.actions';
 import { PostsService } from '../../services/posts.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
@@ -40,7 +30,19 @@ export class PostsEffects {
     );
   });
 
-
+  addPost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(addPost),
+      mergeMap((action) => {
+        return this.postsService.addPost(action.post).pipe(
+          map((data) => {
+            const post = { ...action.post, _id: data.name };
+            return addPostSuccess({ post });
+          })
+        );
+      })
+    );
+  });
 
   loadPostsById$ = createEffect(() => {
     return this.actions$.pipe(
@@ -60,20 +62,6 @@ export class PostsEffects {
     );
   });
 
-  addPost$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(addPost),
-      mergeMap((action) => {
-        return this.postsService.addPost(action.post).pipe(
-          map((data) => {
-            const post = { ...action.post, _id: data.name };
-            return addPostSuccess({ post });
-          })
-        );
-      })
-    );
-  });
-
   deletePost$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(deletePost),
@@ -86,26 +74,6 @@ export class PostsEffects {
       })
     );
   });
-
-  // updatePost$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(updatePost),
-  //     switchMap((action) => {
-  //       return this.postsService.updatePost(action.post).pipe(
-  //         map((data) => {
-  //           const updatedPost: Update<Post> = {
-  //             id: action.post._id,
-  //             changes: {
-  //               ...action.post,
-  //             },
-  //           };
-  //           return updatePostSuccess({ post: updatedPost });
-  //         })
-  //       );
-  //     })
-  //   );
-  // });
-
 
   updatePost$ = createEffect(() => {
     return this.actions$.pipe(
@@ -126,23 +94,4 @@ export class PostsEffects {
     );
   });
 
-  // updatePost$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(updatePost),
-  //     switchMap((action) => {
-  //       return this.postsService.updatePost(action.post).pipe(
-  //         map((data) => {
-  //           console.log(data);
-  //           const updatedPost: Update<Post> = {
-  //             id: action.post._id,
-  //             changes: {
-  //               ...action.post,
-  //             },
-  //           };
-  //           return updatePostSuccess({ post : action.post });
-  //         })
-  //       );
-  //     })
-  //   );
-  // });
 }

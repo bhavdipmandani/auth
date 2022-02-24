@@ -23,6 +23,10 @@ const routes: Routes = [
         path: 'edit/:id',
         component: EditPostComponent,
       },
+      {
+        path: 'detail/:id',
+        component: SinglePostComponent,
+      },
     ],
   },
 ];

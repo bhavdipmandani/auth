@@ -1,7 +1,6 @@
 import { updatePost } from '../state/posts.actions';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Post } from '../../models/posts.model';
-import { getPostById } from '../state/posts.selector';
 import { AppState } from '../../store/app.state';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -36,18 +35,6 @@ export class EditPostComponent implements OnInit, OnDestroy {
           console.log(this.post.title)
         })
       })
-
-    // @ts-ignore
-    // this.store.select(getPostById).subscribe((post) => {
-    //   // console.log(post)
-    //   if (post) {
-    //     this.post = post;
-    //     this.postForm.patchValue({
-    //       title: post.title,
-    //       description: post.description,
-    //     });
-    //   }
-    // });
   }
 
   createForm () {

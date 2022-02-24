@@ -1,23 +1,26 @@
-import { Post } from '../models/posts.model';
-import { Observable } from 'rxjs';
+import {Post} from '../models/posts.model';
+import {Observable} from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {baseUrl} from "../../environments/environment";
 import {map} from "rxjs/operators";
+
 @Injectable({
   providedIn: 'root',
 })
+
 export class PostsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getPosts(): Observable<Post[]> {
     return this.http
       .get<Post[]>(`${baseUrl}/post`);
   }
 
-  addPost(post: Post): Observable<{ name: string , description: string }> {
-    return this.http.post<{ name: string  , description: string }>(
+  addPost(post: Post): Observable<{ name: string, description: string }> {
+    return this.http.post<{ name: string, description: string }>(
       `${baseUrl}/post`,
       post
     );
@@ -34,17 +37,7 @@ export class PostsService {
     );
   }
 
-  // updatePost(post: Post) {
-  //   // console.log(post._id)
-  //   const postItem = {
-  //      [ post._id ] : {title: post.title, description: post.description}
-  //   }
-  //   return this.http.patch(`${baseUrl}/post/${post._id}` ,
-  //     postItem
-  //   );
-  // }
-
-    updatePost(post: Post) {
+  updatePost(post: Post) {
     return this.http.patch(`${baseUrl}/post/${post._id}`, {title: post.title, description: post.description})
   }
 }
