@@ -19,17 +19,17 @@ export const loginStart = createAction(
 
 export const loginSuccess = createAction(
   LOGIN_SUCCESS ,
-  props<{user : User}>()
+  props<{user : User, redirect: boolean}>()
 );
 
 export const signupStart = createAction(
   SIGNUP_START ,
-  props<{ name: string, email: string, phone: string, password: string }>()
+  props<{ firstName: string, lastName: string , email: string, phone: string, password: string , gender: string , birthDate: string }>()
 );
 
 export const signupSuccess = createAction(
   SIGNUP_SUCCESS ,
-  props<{user : User}>()
+  props<{user : User, redirect: boolean}>()
 );
 
 

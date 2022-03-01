@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {AuthState} from "../state/auth.state";
 import {loginStart} from "../state/auth.action";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
     // @ts-ignore
   loginForm: FormGroup;
 
-  constructor( private store: Store<AuthState>) { }
+  constructor( private store: Store<AuthState> , private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({

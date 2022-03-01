@@ -16,33 +16,33 @@ export class AuthService {
     return this.http.post<AuthResponseData>(`${baseUrl}/auth/login` ,
       {email, password}
       );
-  }
+}
 
-  signup(email:string , password: string , name: string , phone:string): Observable<AuthResponseData> {
-    return this.http.post<AuthResponseData>(`${baseUrl}/auth/register` ,
-      {email, password , name , phone}
+  signup(email:string , password: string , firstName: string , lastName: string , phone:string , gender: string , birthDate: string): Observable<AuthResponseData> {
+    return this.http.post<AuthResponseData>(`${baseUrl}/auth/register`,
+      {email, password , firstName , lastName , phone, gender , birthDate}
     );
   }
 
   formatUser(data: AuthResponseData) {
-
     return new User(
       data.token,
+      data.firstName,
+      data.lastName,
+      data.email,
+      data.password,
+      data.phone,
+      data.gender,
+      data.birthDate,
     );
+
   }
 
   setUserInLocalStorage(user: User) {
       localStorage.setItem('userData' , JSON.stringify(user));
   }
   getUserFromLocalStorage() {
-    const userDataString = localStorage.getItem('userData');
-    if (userDataString) {
-      const userData = JSON.parse(userDataString);
-      return new User(
-        userData.email,
-      );
-    }
-    return null;
+    return localStorage.getItem('userData');
   }
 
   logout() {

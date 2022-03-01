@@ -14,12 +14,15 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { appReducer } from './store/app.state';
 import { HomeComponent } from './home/home/home.component';
+import { ProfileComponent } from './home/profile/profile.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +30,7 @@ import { HomeComponent } from './home/home/home.component';
     HttpClientModule,
     StoreModule.forRoot(appReducer),
     AuthModule,
+    FormsModule,
     StoreDevtoolsModule.instrument({
       logOnly: environment.production
     }),

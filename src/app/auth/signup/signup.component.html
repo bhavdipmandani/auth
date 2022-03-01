@@ -1,34 +1,29 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <h1>Signup here!!</h1>
-      <hr/>
-      <form  [formGroup]="signUpForm" (ngSubmit)="onSignUpSubmit()">
-      <div class="mb-3">
-        <label>Name : </label>
-        <input type="text" class="form-control" placeholder="Enter your Name" formControlName="name">
-      </div>
-
-        <div class="mb-3">
-          <label>Phone Number : </label>
-          <input type="text" class="form-control" placeholder="Enter your Phone Number" formControlName="phone">
-        </div>
-
-        <div class="mb-3">
-        <label>Email : </label>
-        <input type="email" class="form-control" placeholder="Enter your Email" formControlName="email">
-      </div>
-
-
-      <div class="mb-3">
-        <label>Password : </label>
-        <input type="password" class="form-control" placeholder="Enter your Password" formControlName="password">
-      </div>
-
-      <div class="mb-3">
-        <button class="btn btn-primary" type="submit" [disabled]="!signUpForm.valid">SignUp</button>
-      </div>
-      </form>
-    </div>
+<header>
+  <div class="top">
+    <h2>facebook</h2>
   </div>
-</div>
+</header>
+<section>
+  <div class="center">
+    <h2>SignUp into Facebook</h2>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSignUpSubmit()">
+      <input type="text" placeholder="FastName" formControlName="firstName" class="signup-input"/>
+      <input type="text" placeholder="LastName" formControlName="lastName" class="signup-input"/>
+      <input type="text" placeholder="Phone Number" formControlName="phone" class="signup-input"/>
+      <input type="text" placeholder="Email" formControlName="email" class="signup-input"/>
+
+      <input type="radio" id="male" value="MALE" formControlName="gender" >&nbsp;
+      <label for="male">Male</label>
+      <input type="radio" id="female" value="FEMALE"  formControlName="gender">&nbsp;
+      <label for="female">Female</label>
+      <input type="radio" id="other" value="OTHER" formControlName="gender">&nbsp;
+      <label for="other">Other</label>
+
+<!--      <input type="text" placeholder="Gender" formControlName="gender"/>-->
+      <input type="date" placeholder="birthDate" formControlName="birthDate" class="signup-input"/>
+      <input type="password" placeholder="Password" formControlName="password" class="signup-input"/>
+      <button class="btn btn-login" [disabled]="!signUpForm.valid">Log In</button>
+      <p class="links"><a href="#" [routerLink]="['/auth']">If you have already account</a></p>
+    </form>
+  </div>
+</section>

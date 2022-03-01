@@ -18,22 +18,27 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
 
     this.signUpForm = new FormGroup({
-      name: new FormControl('' , [Validators.required]),
+      firstName: new FormControl('' , [Validators.required]),
+      lastName: new FormControl('' , [Validators.required]),
       email: new FormControl('' , [Validators.required , Validators.email]),
       phone: new FormControl('' , [Validators.required]),
-      password: new FormControl('' , [Validators.required])
+      password: new FormControl('' , [Validators.required]),
+      gender: new FormControl('' , [Validators.required]),
+      birthDate: new FormControl('' , [Validators.required])
     })
   }
 
   onSignUpSubmit() {
     if(!this.signUpForm.valid) { return; }
 
-    const name = this.signUpForm.value.name;
+    const firstName = this.signUpForm.value.firstName;
+    const lastName = this.signUpForm.value.lastName;
     const email = this.signUpForm.value.email;
     const phone = this.signUpForm.value.phone;
     const password = this.signUpForm.value.password;
-    // this.store.dispatch()
-    this.store.dispatch(signupStart({name , email, phone, password}))
+    const gender = this.signUpForm.value.gender;
+    const birthDate = this.signUpForm.value.birthDate;
+    this.store.dispatch(signupStart({firstName , lastName , email, phone, password, gender, birthDate}))
   }
 
 }

@@ -25,7 +25,7 @@ export class AuthEffect{
       {
         const user = this.authService.formatUser(data);
         this.authService.setUserInLocalStorage(user);
-        return loginSuccess({user});
+        return loginSuccess({user, redirect: true});
       }));
     }))
   })
@@ -34,7 +34,9 @@ export class AuthEffect{
   loginRedirect$ = createEffect(() => {
     return this.actions$.pipe(ofType(loginSuccess) , tap(action  => {
       this.store.dispatch(setErrorMessage({ message: '' }));
-      this.router.navigate(['/'])
+      if(action.redirect) {
+        this.router.navigate(['/home'])
+      }
     }))
   } ,
     {dispatch: false}
@@ -42,40 +44,42 @@ export class AuthEffect{
 
   signup$ = createEffect(() => {
     return this.actions$.pipe(ofType(signupStart), exhaustMap(action => {
-      return this.authService.signup(action.email , action.password  , action.name, action.phone).pipe(
+      return this.authService.signup(action.email , action.password , action.firstName , action.lastName , action.phone , action.gender , action.birthDate).pipe(
         map((data) => {
           const user = this.authService.formatUser(data);
           this.authService.setUserInLocalStorage(user);
-          return signupSuccess({ user });
+          return signupSuccess({ user, redirect: true });
         })
       )
     }));
   })
 
-  // signUp$ = createEffect(() => {
-  //   return this.actions$.pipe(
-  //     ofType(signupStart),
-  //     exhaustMap((action) => {
-  //       return this.authService.signup(action.email , action.password  , action.name, action.phone).pipe(
-  //         map((data) => {
-  //           const user = this.authService.formatUser(data);
-  //           return signupSuccess({ user });
-  //         }),
-  //         catchError((errResp) => {
-  //           const errorMessage = this.authService.getErrorMessage(
-  //             errResp.error.error.message
-  //           );
-  //           return of(setErrorMessage({ message: errorMessage }));
-  //         })
-  //       );
-  //     })
-  //   );
-  // });
+    // signUp$ = createEffect(() => {
+    //   return this.actions$.pipe(
+    //     ofType(signupStart),
+    //     exhaustMap((action) => {
+    //       return this.authService.signup(action.email , action.password  , action.name, action.phone).pipe(
+    //         map((data) => {
+    //           const user = this.authService.formatUser(data);
+    //           return signupSuccess({ user });
+    //         }),
+    //         catchError((errResp) => {
+    //           const errorMessage = this.authService.getErrorMessage(
+    //             errResp.error.error.message
+    //           );
+    //           return of(setErrorMessage({ message: errorMessage }));
+    //         })
+    //       );
+    //     })
+    //   );
+    // });
 
  signupRedirect$ = createEffect(() => {
       return this.actions$.pipe(ofType(signupSuccess) , tap(action  => {
         this.store.dispatch(setErrorMessage({ message: '' }));
-        this.router.navigate(['/auth'])
+        if(action.redirect) {
+          this.router.navigate(['./home'])
+        }
       }))
     } ,
     {dispatch: false}
@@ -86,7 +90,8 @@ export class AuthEffect{
       ofType(autoLogin),
       mergeMap((action) => {
         const user = this.authService.getUserFromLocalStorage();
-        return of(loginSuccess({ user }));
+        // @ts-ignore
+        return of(loginSuccess({ user, redirect: false }));
       })
     );
   });
@@ -95,7 +100,6 @@ export class AuthEffect{
     return this.actions$.pipe(ofType(autoLogout) , map(action => {
       this.authService.logout();
       this.router.navigate(['/auth '])
-
     }))
   } , {
     dispatch: false
